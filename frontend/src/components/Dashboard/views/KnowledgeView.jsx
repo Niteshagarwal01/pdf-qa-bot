@@ -82,10 +82,11 @@ const KnowledgeView = () => {
             </span>
           </div>
 
-          <h1 style={{ fontFamily: '"Syne", sans-serif', fontSize: 'clamp(3rem, 5vw, 5rem)', fontWeight: 800, margin: '0 0 10px 0', letterSpacing: '-0.02em', color: '#fff' }}>
-            <span style={{ color: '#c8ff00', textShadow: '0 0 40px rgba(200, 255, 0, 0.3)' }}>QUERY</span> THE MATRIX
+          <h1 style={{ fontFamily: '"Syne", sans-serif', fontSize: 'clamp(3.5rem, 6vw, 6rem)', fontWeight: 800, margin: '0 0 16px 0', letterSpacing: '-0.02em' }}>
+            <span className="lime-glow glow-hover" style={{ display: 'inline-block' }}>QUERY</span>
+            <span className="white-text glow-hover" style={{ display: 'inline-block', marginLeft: '16px' }}>THE MATRIX</span>
           </h1>
-          <p style={{ fontFamily: '"Space Grotesk", sans-serif', fontSize: '18px', color: '#999', margin: '0 0 24px 0', maxWidth: '600px', lineHeight: '1.6' }}>
+          <p className="text-hover-effect" style={{ fontFamily: '"Space Grotesk", sans-serif', fontSize: '18px', color: '#999', margin: '0 0 32px 0', maxWidth: '650px', lineHeight: '1.6' }}>
             Access all uploaded documents embedded in the FAISS vector database. Use natural language to search across the entire neural network instantly.
           </p>
 
@@ -103,7 +104,7 @@ const KnowledgeView = () => {
         {/* 3D Glass Panels Grid */}
         <div className="knowledge-glass-grid animate-on-load" style={{ opacity: 0, transform: 'translateY(20px)', transition: 'all 0.8s ease 0.2s' }}>
           {filteredPdfs.map(pdf => (
-            <div key={pdf.id} className="panel-glass">
+            <div key={pdf.id} className="panel-glass hover-lift">
               
               <div className="panel-header">
                 <div className="mac-dots">
@@ -113,10 +114,10 @@ const KnowledgeView = () => {
               </div>
 
               <div className="panel-body">
-                <h3 className="doc-title">{pdf.name}</h3>
+                <h3 className="doc-title text-hover-effect">{pdf.name}</h3>
                 <p className="doc-text">
-                  Data payload synchronized on <span className="highlight-lime">{pdf.created_at.split('T')[0]}</span>. 
-                  This intelligence node has processed exactly <span className="highlight-lime">{pdf.chat.length} vector embeddings</span> in the current active subspace.
+                  Data payload synchronized on <span className="highlight-lime text-hover-effect">{pdf.created_at.split('T')[0]}</span>. 
+                  This intelligence node has processed exactly <span className="highlight-lime text-hover-effect">{pdf.chat.length} vector embeddings</span> in the current active subspace.
                 </p>
                 
                 <div className="doc-skeleton">
@@ -127,22 +128,29 @@ const KnowledgeView = () => {
               </div>
 
               <div className="panel-actions">
-                <button className="btn-primary-small">ANALYZE</button>
-                <button className="btn-secondary-small" style={{ borderColor: 'rgba(255, 95, 86, 0.4)', color: '#ff5f56' }}>PURGE NODE</button>
+                <button className="btn-primary-small">
+                  <span className="btn-text">ANALYZE</span>
+                  <span className="btn-glare"></span>
+                </button>
+                <button className="btn-secondary-small">
+                  PURGE NODE
+                </button>
               </div>
               
             </div>
           ))}
 
           {filteredPdfs.length === 0 && (
-             <div className="knowledge-empty-state">
-               <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#555" strokeWidth="1">
+             <div className="knowledge-empty-state hover-lift">
+               <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="var(--accent, #c8ff00)" strokeWidth="1" style={{ opacity: 0.8, filter: 'drop-shadow(0 0 10px rgba(200, 255, 0, 0.4))' }}>
                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
                  <line x1="9" y1="9" x2="15" y2="15"></line>
                  <line x1="15" y1="9" x2="9" y2="15"></line>
                </svg>
-               <h3 className="doc-title">NO NODES DETECTED</h3>
-               <p style={{ color: '#888', marginTop: '10px' }}>INITIALIZE UPLINK SEQUENCE TO START.</p>
+               <h3 className="doc-title" style={{ marginTop: '32px' }}>NO NODES DETECTED</h3>
+               <p className="text-hover-effect" style={{ color: '#888', marginTop: '10px', fontFamily: '"Space Grotesk", sans-serif', letterSpacing: '0.05em' }}>
+                 INITIALIZE UPLINK SEQUENCE TO START.
+               </p>
              </div>
           )}
         </div>
@@ -151,14 +159,14 @@ const KnowledgeView = () => {
       {/* Bottom Data Bar */}
       <div className="knowledge-data-bar animate-on-load" style={{ animationDelay: '0.6s', opacity: 0, transform: 'translateY(20px)', transition: 'all 0.8s ease' }}>
         <div className="data-col">
-          <div className="data-value">{pdfs.length}<span style={{ color: '#c8ff00' }}>+</span></div>
+          <div className="data-value">{pdfs.length}<span style={{ color: '#c8ff00', textShadow: '0 0 20px rgba(200, 255, 0, 0.5)' }}>+</span></div>
           <div className="data-label">NODES SYNCED</div>
         </div>
         <div className="data-col">
-          <div className="data-value">{pdfs.reduce((acc, p) => acc + (p.chat?.length || 0), 0)}<span style={{ color: '#c8ff00' }}>K</span></div>
+          <div className="data-value">{pdfs.reduce((acc, p) => acc + (p.chat?.length || 0), 0)}<span style={{ color: '#c8ff00', textShadow: '0 0 20px rgba(200, 255, 0, 0.5)' }}>K</span></div>
           <div className="data-label">VECTORS STORED</div>
         </div>
-        <div className="data-col active-col">
+        <div className="data-col active-col hover-lift" style={{ transform: 'none' }}>
           <div className="data-value">&lt; 15ms</div>
           <div className="data-label">FAISS LATENCY</div>
           <div className="active-glow"></div>
