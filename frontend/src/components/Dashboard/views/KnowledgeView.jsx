@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getSessionsApi } from '../../../services/api';
-// We no longer need custom CSS, we use the global Dashboard.css classes
+import './KnowledgeView.css';
 
 const KnowledgeView = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -8,10 +8,11 @@ const KnowledgeView = () => {
 
   useEffect(() => {
     // Entrance animation
-    const elements = document.querySelectorAll('.dash-body .animate-on-load');
+    const elements = document.querySelectorAll('.animate-on-load');
     elements.forEach((el, index) => {
       setTimeout(() => {
-        el.classList.add('fade-in-up');
+        el.style.opacity = 1;
+        el.style.transform = 'translateY(0)';
       }, index * 100);
     });
 
@@ -30,7 +31,7 @@ const KnowledgeView = () => {
             const doc = s.documents?.[0];
             return {
               id: doc?.document_id || s.session_id,
-              name: doc?.filename || "Unknown Protocol",
+              name: doc?.filename || "Unknown Document",
               chat: s.chat || [],
               session_id: s.session_id,
               created_at: s.created_at || new Date().toISOString()
@@ -51,85 +52,91 @@ const KnowledgeView = () => {
   );
 
   return (
-    <main className="dash-body" style={{ position: 'relative', overflow: 'hidden', minHeight: '100vh' }}>
+    <div className="knowledge-landing-wrap">
+      {/* Background & Ambiance (from Hero.jsx) */}
+      <div className="knowledge-grid-bg"></div>
+      <div className="knowledge-glow-core"></div>
       
-      {/* ── MASSIVE CRAZY BACKGROUND (MATCHING UPLINK) ── */}
-      <div className="extreme-bg-text glitch-hover" style={{ fontSize: '18vw', top: '20%', left: '50%', opacity: 0.1, zIndex: 0 }}>KNOWLEDGE</div>
-      <div className="abstract-glow-orb" style={{ top: '10%', left: '50%', width: '800px', height: '800px', filter: 'blur(150px)', opacity: 0.1, background: 'var(--accent)', zIndex: 0, transform: 'translateX(-50%)' }}></div>
-      <div className="abstract-glow-orb" style={{ bottom: '-10%', left: '-10%', width: '600px', height: '600px', filter: 'blur(200px)', opacity: 0.05, background: '#00ffcc', zIndex: 0 }}></div>
-
-      <div style={{ position: 'relative', zIndex: 10 }}>
-        
-        {/* ── SEARCH HEADER ── */}
-        <section className="doc-scanner-section animate-on-load" style={{ paddingBottom: '0', minHeight: 'auto', marginTop: '60px' }}>
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px' }}>
-                <h2 className="scanner-title glitch-hover" style={{ fontSize: '2rem' }}>NEURAL DATABASES</h2>
-                <div style={{ width: '100%', maxWidth: '600px', position: 'relative' }}>
-                    <input 
-                        type="text" 
-                        placeholder="QUERY KNOWLEDGE MATRIX..." 
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        style={{
-                            width: '100%',
-                            background: 'rgba(0, 0, 0, 0.5)',
-                            border: '1px solid var(--accent)',
-                            color: 'var(--accent)',
-                            padding: '15px 20px',
-                            fontFamily: 'var(--font-mono)',
-                            letterSpacing: '2px',
-                            outline: 'none',
-                            textTransform: 'uppercase'
-                        }}
-                    />
-                </div>
-            </div>
-        </section>
-
-        {/* ── MASONRY DECK (MATCHING SECURED DATA DECK) ── */}
-        <section className="doc-masonry-section animate-on-load" style={{ animationDelay: '0.2s' }}>
-          <div className="masonry-header">
-            <div className="hud-barcode"></div>
-            <span className="masonry-title">SYNCHRONIZED INDICES</span>
-            <span className="hud-divider">|</span>
-            <span className="neon-text">{filteredPdfs.length} NODES</span>
-          </div>
-
-          <div className="doc-masonry-deck">
-            {filteredPdfs.map(pdf => (
-                <div key={pdf.id} className="masonry-slate">
-                  <div className="slate-top">
-                    <span className="slate-id">IDX-{pdf.session_id.substring(0, 8).toUpperCase()}</span>
-                    <span className="slate-status ready">ONLINE</span>
-                  </div>
-                  
-                  <div className="slate-body">
-                    <h3 className="slate-name" title={pdf.name}>{pdf.name}</h3>
-                    <p className="slate-meta">FAISS CLUSTER {'//'} {pdf.created_at.split('T')[0]}</p>
-                    <p className="slate-stage" style={{ color: 'var(--accent)' }}>{pdf.chat.length} SYNAPSES FIRED</p>
-                  </div>
-
-                  <div className="slate-actions">
-                    <button className="action-btn view">ANALYZE</button>
-                    <button 
-                      className="action-btn process"
-                      style={{ color: '#ff5f56', borderColor: '#ff5f56' }}
-                    >
-                      PURGE
-                    </button>
-                  </div>
-                </div>
-            ))}
-            
-            {filteredPdfs.length === 0 && (
-                <div style={{ padding: '40px', textAlign: 'center', color: '#ff5f56', fontFamily: 'var(--font-mono)', letterSpacing: '2px' }}>
-                    [ NO DATA NODES DETECTED IN MATRIX ]
-                </div>
-            )}
-          </div>
-        </section>
+      {/* Floating Decor (from Hero.jsx) */}
+      <div className="decor-group" style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 1 }}>
+        <div className="decor-dot" style={{ top: '15%', left: '8%', width: '4px', height: '4px', background: '#555', borderRadius: '50%', position: 'absolute', animation: 'pulse 4s infinite' }}></div>
+        <div className="decor-dot" style={{ bottom: '25%', right: '12%', width: '4px', height: '4px', background: '#555', borderRadius: '50%', position: 'absolute', animation: 'pulse 5s infinite 1s' }}></div>
       </div>
-    </main>
+
+      <div className="knowledge-container">
+        
+        {/* Search Header */}
+        <div className="knowledge-search-section animate-on-load" style={{ opacity: 0, transform: 'translateY(20px)', transition: 'all 0.8s ease' }}>
+          <div className="knowledge-tag">
+            <span className="tag-pulse" style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#c8ff00', boxShadow: '0 0 10px #c8ff00', animation: 'rapidPulse 1.5s infinite' }}></span>
+            <span className="tag-text" style={{ fontFamily: '"JetBrains Mono", monospace', fontSize: '10px', letterSpacing: '0.2em', color: '#555' }}>
+              GLOBAL NEURAL NET v2.0
+            </span>
+          </div>
+
+          <h1 style={{ fontFamily: '"Syne", sans-serif', fontSize: 'clamp(3rem, 5vw, 5rem)', fontWeight: 800, margin: '0 0 10px 0', letterSpacing: '-0.02em', color: '#fff' }}>
+            <span style={{ color: '#c8ff00', textShadow: '0 0 40px rgba(200, 255, 0, 0.3)' }}>QUERY</span> YOUR DATA
+          </h1>
+
+          <div className="knowledge-search-input-wrap">
+            <input 
+              type="text" 
+              className="knowledge-search-input"
+              placeholder="SEARCH KNOWLEDGE BASE..." 
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </div>
+        </div>
+
+        {/* 3D Glass Panels Grid */}
+        <div className="knowledge-glass-grid animate-on-load" style={{ opacity: 0, transform: 'translateY(20px)', transition: 'all 0.8s ease 0.2s' }}>
+          {filteredPdfs.map(pdf => (
+            <div key={pdf.id} className="panel-glass">
+              
+              <div className="panel-header">
+                <div className="mac-dots">
+                  <i></i><i></i><i></i>
+                </div>
+                <div className="panel-title">IDX-{pdf.session_id.substring(0, 8)}</div>
+              </div>
+
+              <div className="panel-body">
+                <h3 className="doc-title">{pdf.name}</h3>
+                <p className="doc-text">
+                  Synchronized on <span className="highlight-lime">{pdf.created_at.split('T')[0]}</span>. 
+                  This node has processed <span className="highlight-lime">{pdf.chat.length}</span> interactions and is currently active in the RAG vector space.
+                </p>
+                
+                <div className="doc-skeleton">
+                  <div className="skel-line w-100"></div>
+                  <div className="skel-line w-80"></div>
+                  <div className="skel-line w-90"></div>
+                </div>
+              </div>
+
+              <div className="panel-actions">
+                <button className="btn-primary-small">ANALYZE</button>
+                <button className="btn-secondary-small" style={{ borderColor: 'rgba(255, 95, 86, 0.4)', color: '#ff5f56' }}>PURGE</button>
+              </div>
+              
+            </div>
+          ))}
+
+          {filteredPdfs.length === 0 && (
+             <div className="knowledge-empty-state">
+               <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#555" strokeWidth="1">
+                 <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                 <line x1="9" y1="9" x2="15" y2="15"></line>
+                 <line x1="15" y1="9" x2="9" y2="15"></line>
+               </svg>
+               <h3 className="doc-title">NO NODES DETECTED</h3>
+             </div>
+          )}
+        </div>
+
+      </div>
+    </div>
   );
 };
 
