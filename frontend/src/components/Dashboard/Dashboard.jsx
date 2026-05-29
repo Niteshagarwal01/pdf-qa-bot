@@ -11,14 +11,14 @@ import SettingsView from './views/SettingsView';
  * Main Dashboard Entry Point
  * Wraps the views inside the DashboardLayout shell.
  */
-const Dashboard = ({ pdfs }) => {
+const Dashboard = () => {
   return (
     <DashboardLayout>
       <Routes>
         <Route path="/" element={<DashboardHome />} />
         <Route path="documents" element={<DocumentsView />} />
         <Route path="chat" element={<ChatView />} />
-        <Route path="knowledge" element={<KnowledgeView pdfs={pdfs} />} />
+        <Route path="knowledge" element={<KnowledgeView />} />
         <Route path="settings" element={<SettingsView />} />
         <Route path="*" element={<Navigate to="/dashboard" replace />} />
       </Routes>

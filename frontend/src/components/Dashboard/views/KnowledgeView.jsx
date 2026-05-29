@@ -1,8 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './KnowledgeView.css';
+import { getSessionsApi } from '../../../services/api';
 
-const KnowledgeView = ({ pdfs = [] }) => {
+const KnowledgeView = () => {
   const [searchQuery, setSearchQuery] = useState('');
+  const [pdfs, setPdfs] = useState([]);
+
+  useEffect(() => {
+    const fetchHistory = async () => {
+      try {
+        const raw = localStorage.getItem('pdf_qa_sessions_v1'); // SESSION_STORAGE_KEY from App.js
+        if (!raw) return;
+        let parsed = null;
+        try { parsed = JSON.parse(atob(raw)); } catch (_) { return; }
+        if (!Array.isArray(parsed)) return;
+        
+        const knownSessions = parsed.filter(s => s && s.session_id && s.session_secret);
+        const sessions = await getSessionsApi(knownSessions);
+        if (sessions && sessions.length > 0) {
+          const secretById = new Map(knownSessions.map(s => [s.session_id, s.session_secret]));
+          const formattedPdfs = sessions.map(s => {
+            const doc = s.documents?.[0];
+            return {
+              id: doc?.document_id || s.session_id,
+              name: doc?.filename || "Unknown PDF",
+              chat: s.chat || [],
+              session_id: s.session_id,
+            };
+          });
+          setPdfs(formattedPdfs);
+        }
+      } catch (e) {
+        console.error("Failed to load knowledge history:", e);
+      }
+    };
+    fetchHistory();
+  }, []);
 
   // Filter pdfs based on the search query
   const filteredPdfs = pdfs.filter(pdf => 

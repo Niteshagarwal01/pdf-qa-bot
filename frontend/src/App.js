@@ -496,7 +496,7 @@ function App() {
           <Route path="/workspace" element={<MainApp />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/dashboard/*" element={<Dashboard pdfs={pdfs} />} />
+          <Route path="/dashboard/*" element={<Dashboard />} />
           <Route path="/studyhub" element={<StudyHub />} />
         </Routes>
       </BrowserRouter>
