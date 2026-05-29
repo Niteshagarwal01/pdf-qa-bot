@@ -72,40 +72,68 @@ const KnowledgeView = () => {
 
       <div className="knowledge-container">
         
-        {/* Search Header - matching hero layout perfectly */}
-        <div className="knowledge-hero-content animate-on-load">
-          <div className="knowledge-tag">
-            <span className="tag-pulse"></span>
-            <span className="tag-text">GLOBAL NEURAL NET v2.0</span>
+        {/* ─── Hero Section ─── */}
+        <div className="knowledge-hero-row">
+          {/* Left Column (Text & Search) */}
+          <div className="knowledge-hero-content animate-on-load">
+            <div className="knowledge-tag">
+              <span className="tag-pulse"></span>
+              <span className="tag-text">GLOBAL NEURAL NET v2.0</span>
+            </div>
+
+            <h1 className="knowledge-hero-title">
+              <span className="title-line lime-glow glow-hover">QUERY</span>
+              <span className="title-line white-text glow-hover">THE MATRIX</span>
+            </h1>
+            
+            <div className="knowledge-hero-subtitle">
+              <p className="subtitle-text text-hover-effect">
+                Access all uploaded documents embedded in the FAISS vector database.
+              </p>
+              <p className="subtitle-text text-hover-effect">
+                Use natural language to search across the entire neural network instantly.
+              </p>
+            </div>
+
+            <div className="knowledge-search-input-wrap">
+              <input 
+                type="text" 
+                className="knowledge-search-input text-hover-effect"
+                placeholder="SEARCH SECURED DOCUMENTS..." 
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            </div>
           </div>
 
-          <h1 className="knowledge-hero-title">
-            <span className="title-line lime-glow glow-hover">QUERY</span>
-            <span className="title-line white-text glow-hover">THE MATRIX</span>
-          </h1>
-          
-          <div className="knowledge-hero-subtitle">
-            <p className="subtitle-text text-hover-effect">
-              Access all uploaded documents embedded in the FAISS vector database.
-            </p>
-            <p className="subtitle-text text-hover-effect">
-              Use natural language to search across the entire neural network instantly.
-            </p>
-          </div>
-
-          <div className="knowledge-search-input-wrap">
-            <input 
-              type="text" 
-              className="knowledge-search-input text-hover-effect"
-              placeholder="SEARCH SECURED DOCUMENTS..." 
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
+          {/* Right Column (3D Visual) */}
+          <div className="knowledge-hero-visual animate-on-load" style={{ animationDelay: '0.2s' }}>
+            <div className="scene-3d">
+              <div className="panel-glass panel-pdf">
+                <div className="panel-header">
+                  <div className="mac-dots">
+                    <i></i><i></i><i></i>
+                  </div>
+                  <div className="panel-title">SYSTEM_ARCHITECTURE.pdf</div>
+                </div>
+                <div className="panel-body">
+                  <h3 className="doc-title text-hover-effect">Neural Core</h3>
+                  <p className="doc-text">
+                    DocuMind uses a distributed <span className="highlight-lime text-hover-effect">FAISS cluster</span> to map unstructured data into high-dimensional space.
+                  </p>
+                  <div className="doc-skeleton">
+                    <div className="skel-line w-100"></div>
+                    <div className="skel-line w-80"></div>
+                    <div className="skel-line w-90"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* 3D Glass Panels Grid */}
-        <div className="knowledge-glass-grid animate-on-load" style={{ animationDelay: '0.2s' }}>
+        {/* ─── Masonry Grid (Document Nodes) ─── */}
+        <div className="knowledge-glass-grid animate-on-load" style={{ animationDelay: '0.4s' }}>
           {filteredPdfs.map(pdf => (
             <div key={pdf.id} className="panel-glass hover-lift">
               
@@ -160,7 +188,7 @@ const KnowledgeView = () => {
       </div>
 
       {/* Bottom Data Bar */}
-      <div className="knowledge-data-bar animate-on-load" style={{ animationDelay: '0.4s' }}>
+      <div className="knowledge-data-bar animate-on-load" style={{ animationDelay: '0.6s' }}>
         <div className="data-col hover-lift">
           <div className="data-value">{pdfs.length}<span className="lime-glow">+</span></div>
           <div className="data-label">NODES SYNCED</div>
