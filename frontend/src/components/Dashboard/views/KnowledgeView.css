@@ -314,15 +314,15 @@
   height: 420px;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) translateZ(-40px);
+  transform: translate(-50%, -50%) translateZ(0px);
   border-color: rgba(200, 255, 0, 0.2);
   cursor: default;
 }
 
 .panel-pdf:hover {
-  transform: translate(-50%, -50%) translateZ(20px) scale(1.02);
+  transform: translate(-50%, -50%) translateZ(40px) scale(1.05);
   border-color: rgba(200, 255, 0, 0.5);
-  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.8), 0 0 40px rgba(200, 255, 0, 0.1);
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.8), 0 0 40px rgba(200, 255, 0, 0.2);
 }
 
 /* Panel 2: Chat UI */
