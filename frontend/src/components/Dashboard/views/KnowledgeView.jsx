@@ -109,6 +109,7 @@ const KnowledgeView = () => {
           {/* Right Column (3D Visual) */}
           <div className="knowledge-hero-visual animate-on-load" style={{ animationDelay: '0.2s' }}>
             <div className="scene-3d">
+              {/* Box 1: The PDF Document */}
               <div className="panel-glass panel-pdf">
                 <div className="panel-header">
                   <div className="mac-dots">
@@ -125,6 +126,27 @@ const KnowledgeView = () => {
                     <div className="skel-line w-100"></div>
                     <div className="skel-line w-80"></div>
                     <div className="skel-line w-90"></div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Box 2: The AI Chat Interface */}
+              <div className="panel-glass panel-chat">
+                <div className="panel-header">
+                  <div className="panel-title" style={{ color: '#c8ff00' }}>DocuMind AI</div>
+                  <div className="status-indicator"></div>
+                </div>
+                <div className="panel-body chat-container">
+                  <div className="chat-bubble user-bubble hover-lift">
+                    How does the FAISS cluster work?
+                  </div>
+                  <div className="chat-bubble ai-bubble hover-lift">
+                    <span className="ai-icon">✦</span>
+                    <p>It performs <strong>similarity search</strong> on dense vectors, allowing you to instantly query millions of documents.</p>
+                  </div>
+                  <div className="chat-input-mock">
+                    <span>Ask a follow up...</span>
+                    <div className="send-btn"></div>
                   </div>
                 </div>
               </div>
