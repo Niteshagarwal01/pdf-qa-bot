@@ -53,14 +53,22 @@ const KnowledgeView = () => {
 
   return (
     <div className="knowledge-landing-wrap">
-      {/* Background & Ambiance (from Hero.jsx) */}
+      {/* Huge Background Typography to fill empty space */}
+      <div className="bg-typography">RAG ENGINE</div>
+      
+      {/* Background & Ambiance */}
       <div className="knowledge-grid-bg"></div>
       <div className="knowledge-glow-core"></div>
+      <div className="knowledge-glow-accent"></div>
       
-      {/* Floating Decor (from Hero.jsx) */}
+      {/* Floating Decor */}
       <div className="decor-group" style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 1 }}>
-        <div className="decor-dot" style={{ top: '15%', left: '8%', width: '4px', height: '4px', background: '#555', borderRadius: '50%', position: 'absolute', animation: 'pulse 4s infinite' }}></div>
-        <div className="decor-dot" style={{ bottom: '25%', right: '12%', width: '4px', height: '4px', background: '#555', borderRadius: '50%', position: 'absolute', animation: 'pulse 5s infinite 1s' }}></div>
+        <div className="decor-cross c1" style={{ top: '15%', left: '8%', animation: 'float 8s infinite alternate' }}></div>
+        <div className="decor-cross c2" style={{ top: '60%', left: '48%', animation: 'float 12s infinite alternate-reverse' }}></div>
+        <div className="decor-cross c3" style={{ top: '25%', right: '40%', animation: 'float 10s infinite alternate' }}></div>
+        <div className="decor-dot d1" style={{ bottom: '25%', left: '12%', animation: 'pulse 4s infinite' }}></div>
+        <div className="decor-dot d2" style={{ top: '45%', right: '42%', animation: 'pulse 5s infinite 1s' }}></div>
+        <div className="decor-dot d3" style={{ bottom: '40%', right: '8%', animation: 'pulse 6s infinite 2s' }}></div>
       </div>
 
       <div className="knowledge-container">
@@ -75,14 +83,17 @@ const KnowledgeView = () => {
           </div>
 
           <h1 style={{ fontFamily: '"Syne", sans-serif', fontSize: 'clamp(3rem, 5vw, 5rem)', fontWeight: 800, margin: '0 0 10px 0', letterSpacing: '-0.02em', color: '#fff' }}>
-            <span style={{ color: '#c8ff00', textShadow: '0 0 40px rgba(200, 255, 0, 0.3)' }}>QUERY</span> YOUR DATA
+            <span style={{ color: '#c8ff00', textShadow: '0 0 40px rgba(200, 255, 0, 0.3)' }}>QUERY</span> THE MATRIX
           </h1>
+          <p style={{ fontFamily: '"Space Grotesk", sans-serif', fontSize: '18px', color: '#999', margin: '0 0 24px 0', maxWidth: '600px', lineHeight: '1.6' }}>
+            Access all uploaded documents embedded in the FAISS vector database. Use natural language to search across the entire neural network instantly.
+          </p>
 
           <div className="knowledge-search-input-wrap">
             <input 
               type="text" 
               className="knowledge-search-input"
-              placeholder="SEARCH KNOWLEDGE BASE..." 
+              placeholder="SEARCH SECURED DOCUMENTS..." 
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
@@ -104,8 +115,8 @@ const KnowledgeView = () => {
               <div className="panel-body">
                 <h3 className="doc-title">{pdf.name}</h3>
                 <p className="doc-text">
-                  Synchronized on <span className="highlight-lime">{pdf.created_at.split('T')[0]}</span>. 
-                  This node has processed <span className="highlight-lime">{pdf.chat.length}</span> interactions and is currently active in the RAG vector space.
+                  Data payload synchronized on <span className="highlight-lime">{pdf.created_at.split('T')[0]}</span>. 
+                  This intelligence node has processed exactly <span className="highlight-lime">{pdf.chat.length} vector embeddings</span> in the current active subspace.
                 </p>
                 
                 <div className="doc-skeleton">
@@ -117,7 +128,7 @@ const KnowledgeView = () => {
 
               <div className="panel-actions">
                 <button className="btn-primary-small">ANALYZE</button>
-                <button className="btn-secondary-small" style={{ borderColor: 'rgba(255, 95, 86, 0.4)', color: '#ff5f56' }}>PURGE</button>
+                <button className="btn-secondary-small" style={{ borderColor: 'rgba(255, 95, 86, 0.4)', color: '#ff5f56' }}>PURGE NODE</button>
               </div>
               
             </div>
@@ -131,10 +142,31 @@ const KnowledgeView = () => {
                  <line x1="15" y1="9" x2="9" y2="15"></line>
                </svg>
                <h3 className="doc-title">NO NODES DETECTED</h3>
+               <p style={{ color: '#888', marginTop: '10px' }}>INITIALIZE UPLINK SEQUENCE TO START.</p>
              </div>
           )}
         </div>
+      </div>
 
+      {/* Bottom Data Bar */}
+      <div className="knowledge-data-bar animate-on-load" style={{ animationDelay: '0.6s', opacity: 0, transform: 'translateY(20px)', transition: 'all 0.8s ease' }}>
+        <div className="data-col">
+          <div className="data-value">{pdfs.length}<span style={{ color: '#c8ff00' }}>+</span></div>
+          <div className="data-label">NODES SYNCED</div>
+        </div>
+        <div className="data-col">
+          <div className="data-value">{pdfs.reduce((acc, p) => acc + (p.chat?.length || 0), 0)}<span style={{ color: '#c8ff00' }}>K</span></div>
+          <div className="data-label">VECTORS STORED</div>
+        </div>
+        <div className="data-col active-col">
+          <div className="data-value">&lt; 15ms</div>
+          <div className="data-label">FAISS LATENCY</div>
+          <div className="active-glow"></div>
+        </div>
+        <div className="data-col">
+          <div className="data-value">∞</div>
+          <div className="data-label">INTELLIGENCE NET</div>
+        </div>
       </div>
     </div>
   );
